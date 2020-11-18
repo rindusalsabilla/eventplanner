@@ -7,4 +7,7 @@
     <string name="desc">Descriptions</string>
     <string name="save">Save</string>
     <string name="pick">Date</string>
+    <string name="sample">15/11/20</string>
+    <string name="add">Add Event</string>
+    <string name="choose_image">Choose Image</string>
 </resources>

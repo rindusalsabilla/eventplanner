@@ -46,7 +46,7 @@ class EventListFragment : Fragment() {
     fun goToSelectedContacts(data: EventEntity, position: Int) {
         val fragment = EventDetailsFragment(data, position)
         val fragmentTransaction: FragmentTransaction? = activity?.supportFragmentManager?.beginTransaction()
-        fragmentTransaction?.replace(R.id.fragment_container_view_tag, fragment, fragment.toString())
+        fragmentTransaction?.replace(R.id.nav_host_fragment, fragment, fragment.toString())
         fragmentTransaction?.addToBackStack(fragment.toString())
         fragmentTransaction?.commit()
     }

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Event Planner</string>
+    <string name="title_event">Acara</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_profile">Profile</string>
+    <string name="event">Acara</string>
+    <string name="desc">Deskripsi</string>
+    <string name="save">Simpan</string>
+    <string name="pick">Tanggal</string>
+    <string name="sample">15/11/20</string>
+    <string name="add">Tambah Acara</string>
+    <string name="choose_image">Pilih Gambar</string>
+</resources>

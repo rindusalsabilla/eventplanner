@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:src="@drawable/ic_baseline_photo_24"
+        android:id="@+id/add_image"
+        android:scaleType="centerCrop"/>
+
+
+    <Button
+        android:id="@+id/btn_change_img"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="@string/choose_image"
+        android:textAllCaps="false"
+        android:textColor="#000000"
+        android:textSize="36sp"
+        app:backgroundTint="#4BB4F8" />
+
+
+</LinearLayout>

@@ -7,8 +7,8 @@
 
     <fragment
         android:id="@+id/navigation_event"
-        android:name="id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.ui.eventEntity.EventListFragment"
-        android:label="@string/title_home"
+        android:name="id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.ui.event.EventListFragment"
+        android:label="@string/title_event"
         tools:layout="@layout/fragment_event_list" />
 
     <fragment
@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:name="id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.ui.profile.ProfileFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_profile" />
 </navigation>
