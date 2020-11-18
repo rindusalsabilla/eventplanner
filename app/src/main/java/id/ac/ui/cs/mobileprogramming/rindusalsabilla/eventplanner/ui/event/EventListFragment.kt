@@ -1,0 +1,92 @@
+package id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.ui.event
+
+import android.app.Activity
+import android.content.Intent
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageButton
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.R
+import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.data.EventEntity
+import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.databinding.FragmentEventListBinding
+import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.ui.dashboard.DashboardFragment
+import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.utils.InjectorUtils
+import kotlinx.android.synthetic.main.event_item.*
+
+class EventListFragment : Fragment() {
+
+    private lateinit var recyclerView: RecyclerView
+    val ADD_EVENT_REQUEST = 1
+    private lateinit var mView: View
+    private lateinit var eventViewModel: EventViewModel
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val binding: FragmentEventListBinding = FragmentEventListBinding.inflate(inflater, container, false)
+        this.mView = binding.root
+        this.recyclerView = mView.findViewById(R.id.recycler_view)
+
+        val buttonAddEvent = mView.findViewById(R.id.button_add) as ImageButton
+        buttonAddEvent.setOnClickListener {
+            val intent: Intent = Intent(mView.context, AddEventActivity::class.java)
+            startActivityForResult(intent, ADD_EVENT_REQUEST)
+        }
+
+        showRecyclerList()
+        return mView
+    }
+
+    fun goToSelectedContacts(data: EventEntity, position: Int) {
+        val fragment = EventDetailsFragment(data, position)
+        val fragmentTransaction: FragmentTransaction? = activity?.supportFragmentManager?.beginTransaction()
+        fragmentTransaction?.replace(R.id.fragment_container_view_tag, fragment, fragment.toString())
+        fragmentTransaction?.addToBackStack(fragment.toString())
+        fragmentTransaction?.commit()
+    }
+
+    private fun showRecyclerList() {
+        recyclerView.setLayoutManager(LinearLayoutManager(mView.context))
+        recyclerView.setHasFixedSize(true)
+
+        val adapter = EventAdapter()
+        recyclerView.setAdapter(adapter)
+
+        val factory = InjectorUtils.provideQuotesViewModelFactory(mView.context)
+
+        eventViewModel = ViewModelProviders.of(this, factory)
+            .get(EventViewModel::class.java)
+        eventViewModel.getAllEvent().observe(viewLifecycleOwner, Observer { contacts ->
+            adapter.setContacts(contacts)
+        })
+
+        adapter.setOnItemClickCallback(object: EventAdapter.OnItemClickCallback {
+            override fun onItemClicked(data: EventEntity, position: Int) {
+                goToSelectedContacts(data, position)
+            }
+        })
+    }
+
+    @kotlinx.coroutines.ObsoleteCoroutinesApi
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == ADD_EVENT_REQUEST && resultCode == Activity.RESULT_OK) {
+            if (data != null) {
+                val event: String = data.getStringExtra(AddEventActivity.EXTRA_EVENT)?: ""
+                val desc: String = data.getStringExtra(AddEventActivity.EXTRA_DESC)?: ""
+
+                val contacts = EventEntity(event, desc)
+                eventViewModel.insert(contacts)
+
+                Toast.makeText(mView.context, "Event Saved", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+}

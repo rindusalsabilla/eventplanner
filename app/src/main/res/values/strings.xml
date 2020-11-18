@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Event Planner</string>
+    <string name="title_event">Event</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_profile">Profile</string>
+    <string name="event">Event</string>
+    <string name="desc">Descriptions</string>
+    <string name="save">Save</string>
+    <string name="pick">Date</string>
+</resources>
