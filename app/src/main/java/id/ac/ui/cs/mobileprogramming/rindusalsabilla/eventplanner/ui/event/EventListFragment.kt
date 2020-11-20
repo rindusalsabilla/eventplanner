@@ -56,7 +56,7 @@ class EventListFragment : Fragment() {
         val adapter = EventAdapter()
         recyclerView.setAdapter(adapter)
 
-        val factory = InjectorUtils.provideQuotesViewModelFactory(mView.context)
+        val factory = InjectorUtils.provideEventViewModelFactory(mView.context)
 
         eventViewModel = ViewModelProviders.of(this, factory)
             .get(EventViewModel::class.java)

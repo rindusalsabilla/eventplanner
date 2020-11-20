@@ -11,50 +11,16 @@ import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.data.login.Log
 import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.data.login.LoginEntity
 import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.utils.Utilities
 
-class LoginRepository(application: Application?) {
-    private val loginDao: LoginDao
-    private val mUserLogin: LiveData<List<LoginEntity>>
+class LoginRepository(private val loginDao: LoginDao) {
 
-    val allUsers: LiveData<List<Any>>
-        get() = mUserLogin
+//    private val allLoginEntity: LiveData<List<LoginEntity>> = loginDao.getAllUser()
 
-    private val allLoginEntity: LiveData<List<LoginEntity>> = loginDao.getAllUser()
-
-    fun createUser(entity: Login) {
-        val userLogin = LoginEntity()
-        userLogin.setUsername(entity.getUsername())
-        userLogin.setPassword(entity.getPassword())
-        userLogin.setCreatedAt(Utilities.getCurrentTimestamp())
-        insertUserLoginAsync(loginDao).execute(userLogin)
+    fun createUser(loginEntity: LoginEntity) {
+        loginDao.createUser(loginEntity)
     }
 
-    fun getUserLoginByUsernameAndPassword(
-        username: String?,
-        password: String?
-    ): LiveData<LoginEntity> {
+    fun getUserLoginByUsernameAndPassword(username: String, password: String) : LiveData<LoginEntity>{
         return loginDao.getUserByUsernameAndPassword(username, password)
-    }
-
-    private class insertUserLoginAsync internal constructor(loginDao: LoginDao) :
-        AsyncTask<LoginEntity?, Void?, Long>() {
-        private val loginDao: LoginDao
-        override fun doInBackground(vararg userLogin: LoginEntity): Long {
-            return loginDao.createUser(userLogin[0])
-        }
-
-        override fun onPostExecute(aLong: Long) {
-            super.onPostExecute(aLong)
-        }
-
-        init {
-            this.loginDao = loginDao
-        }
-    }
-
-    init {
-        val db: LoginDb = LoginDb.getDatabase(application)
-        loginDao = db.loginDao()
-        mUserLogin = loginDao.getAllUser()
     }
 
     companion object {

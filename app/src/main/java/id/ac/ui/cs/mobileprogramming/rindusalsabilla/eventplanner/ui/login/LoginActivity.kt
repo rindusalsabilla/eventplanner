@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.MainActivity
 import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.R
+import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.data.login.LoginEntity
 import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.utils.EventPlannerConstant
 
 class LoginActivity : AppCompatActivity(), View.OnClickListener {
@@ -50,7 +51,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                 val username = inputUsername.text.toString()
                 val password = inputPassword.text.toString()
                 viewModel!!.getUserLoginByUsernameAndPassword(username, password)
-                    .observe(this, Observer<Any?> { user ->
+                    .observe(this, Observer<LoginEntity> { user ->
                         if (user != null) {
                             val sharedpreferences = getSharedPreferences(
                                 EventPlannerConstant.PREFERENCES_NAME,
@@ -59,7 +60,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                             val editor = sharedpreferences.edit()
                             editor.putString(
                                 EventPlannerConstant.KEY_USER_ID,
-                                String.valueOf(user.getId())
+                                user.id.toString()
                             )
                             editor.apply()
                             val toast: Toast = Toast.makeText(

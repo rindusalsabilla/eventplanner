@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EventPlanner">
         <activity
-            android:name=".ui.login.LoginActivity"
+            android:name=".ui.SplashScreenActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,7 +19,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity
+            android:name=".ui.login.LoginActivity"
+            android:label="@string/add">
+        </activity>
         <activity
             android:name=".ui.event.AddEventActivity"
             android:label="@string/add">

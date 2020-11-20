@@ -8,6 +8,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.R
+import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.data.login.LoginEntity
+import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.utils.Utilities
 
 class CreateAccountActivity : AppCompatActivity(), View.OnClickListener {
     private var viewModel: CreateAccountViewModel? = null
@@ -44,7 +46,8 @@ class CreateAccountActivity : AppCompatActivity(), View.OnClickListener {
             )
             toast.show()
         } else {
-            viewModel!!.createUser(username, password)
+            val loginEntity =  LoginEntity(username = username, password = password, createdAt = Utilities.currentTimestamp)
+            viewModel!!.createUser(loginEntity)
 //            viewModel.createUserProfile(name, phone)
             val intent = Intent(this, LoginActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
