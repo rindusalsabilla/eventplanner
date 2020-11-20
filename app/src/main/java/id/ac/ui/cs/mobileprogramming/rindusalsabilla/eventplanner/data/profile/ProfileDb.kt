@@ -1,0 +1,36 @@
+package id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.data.profile
+
+import android.content.Context
+import androidx.room.Database
+import androidx.room.Room
+import androidx.room.RoomDatabase
+import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.data.login.LoginDao
+import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.data.login.LoginEntity
+
+@Database(
+    entities = [ProfileEntity::class],
+    version = 2,
+    exportSchema = false
+)
+abstract class ProfileDb : RoomDatabase() {
+
+    abstract fun profileDao(): ProfileDao
+
+    companion object {
+
+        @Volatile
+        private var instance: ProfileDb? = null
+
+        fun getInstance(context: Context) = instance
+            ?: synchronized(this) {
+                instance
+                    ?: Room.databaseBuilder(
+                        context.getApplicationContext(),
+                        ProfileDb::class.java,
+                        "profile_db"
+                    )
+                        .fallbackToDestructiveMigration()
+                        .build()
+            }
+    }
+}

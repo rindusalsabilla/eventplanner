@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.R
-import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.ui.login.LoginActivity
+import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.ui.auth.LoginActivity
 
 class SplashScreenActivity : Activity() {
     lateinit var handler: Handler

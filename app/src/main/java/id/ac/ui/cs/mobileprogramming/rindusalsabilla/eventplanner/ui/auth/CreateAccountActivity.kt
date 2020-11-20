@@ -1,4 +1,4 @@
-package id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.ui.login
+package id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.ui.auth
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,17 +6,22 @@ import android.view.View
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.R
 import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.data.login.LoginEntity
+import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.data.profile.ProfileEntity
+import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.utils.InjectorUtils
 import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.utils.Utilities
 
 class CreateAccountActivity : AppCompatActivity(), View.OnClickListener {
-    private var viewModel: CreateAccountViewModel? = null
+    private lateinit var createAccountViewModel: CreateAccountViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup)
-        viewModel = ViewModelProvider(this)[CreateAccountViewModel::class.java]
+
+        val factory = InjectorUtils.provideRegisterViewModelFactory(this.applicationContext)
+        createAccountViewModel = ViewModelProviders.of(this, factory).get(CreateAccountViewModel::class.java)
+
         val createAccount = findViewById<View>(R.id.button_create)
         createAccount.setOnClickListener(this)
     }
@@ -47,8 +52,9 @@ class CreateAccountActivity : AppCompatActivity(), View.OnClickListener {
             toast.show()
         } else {
             val loginEntity =  LoginEntity(username = username, password = password, createdAt = Utilities.currentTimestamp)
-            viewModel!!.createUser(loginEntity)
-//            viewModel.createUserProfile(name, phone)
+            val profileEntity =  ProfileEntity(name = name, number_phone = phone , created_at = Utilities.currentTimestamp, modified_at = Utilities.currentTimestamp)
+            createAccountViewModel!!.createUser(loginEntity)
+            createAccountViewModel!!.createUserProfile(profileEntity)
             val intent = Intent(this, LoginActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)

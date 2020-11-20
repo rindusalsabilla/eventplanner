@@ -20,4 +20,6 @@
     <string name="toastLoginSuccess">Login Success</string>
     <string name="login_failed">Login Failed</string>
     <string name="event_saved">Event Saved</string>
+    <string name="logout">Logout</string>
+    <string name="save_changes">Save Changes</string>
 </resources>

@@ -1,10 +1,7 @@
-package id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.ui.login
+package id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.ui.auth
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.data.event.EventEntity
 import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.data.login.LoginEntity
 import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.repository.LoginRepository
 

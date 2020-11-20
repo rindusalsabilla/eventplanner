@@ -1,4 +1,4 @@
-package id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.ui.login
+package id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.ui.auth
 
 import android.content.Context
 import android.content.Intent
@@ -8,14 +8,16 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.MainActivity
 import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.R
 import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.data.login.LoginEntity
 import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.utils.EventPlannerConstant
+import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.utils.InjectorUtils
 
 class LoginActivity : AppCompatActivity(), View.OnClickListener {
-    private var viewModel: LoginViewModel? = null
+//    private var viewModel: LoginViewModel? = null
+    private lateinit var loginViewModel: LoginViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val sharedpreferences = this.application.getSharedPreferences(
@@ -30,7 +32,10 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             startActivity(intent)
         }
         setContentView(R.layout.activity_login)
-        viewModel = ViewModelProvider(this)[LoginViewModel::class.java]
+
+        val factory = InjectorUtils.provideLoginViewModelFactory(this.applicationContext)
+        loginViewModel = ViewModelProviders.of(this, factory).get(LoginViewModel::class.java)
+
         val createAccount = findViewById<View>(R.id.button_register)
         val loginButton = findViewById<View>(R.id.button_login)
         createAccount.setOnClickListener(this)
@@ -50,7 +55,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                     findViewById<View>(R.id.field_password) as EditText
                 val username = inputUsername.text.toString()
                 val password = inputPassword.text.toString()
-                viewModel!!.getUserLoginByUsernameAndPassword(username, password)
+                loginViewModel!!.getUserLoginByUsernameAndPassword(username, password)
                     .observe(this, Observer<LoginEntity> { user ->
                         if (user != null) {
                             val sharedpreferences = getSharedPreferences(

@@ -2,6 +2,7 @@ package id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.ui.profile
 
 import android.Manifest
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
@@ -10,22 +11,27 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.R
-import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.ui.dashboard.DashboardViewModel
+import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.data.profile.ProfileEntity
+import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.ui.auth.LoginActivity
+import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.ui.auth.LoginViewModel
+import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.utils.EventPlannerConstant
+import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.utils.InjectorUtils
+import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.utils.Utilities
 import kotlinx.android.synthetic.main.fragment_profile.*
-
-import javax.xml.transform.OutputKeys.VERSION
 
 class ProfileFragment : Fragment() {
 
     private lateinit var profileViewModel: ProfileViewModel
-
+    private lateinit var profile: ProfileEntity
+    private lateinit var mView: View
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,6 +57,30 @@ class ProfileFragment : Fragment() {
                 pickImageFromGallery();
             }
         }
+
+        val factory = InjectorUtils.provideProfileViewModelFactory(mView.context)
+        profileViewModel = ViewModelProviders.of(this, factory).get(ProfileViewModel::class.java)
+
+        val profileField = root.findViewById<EditText>(R.id.fieldNameProfile)
+        val numberField = root.findViewById<EditText>(R.id.fieldPhoneProfile)
+        val logout = root.findViewById<TextView>(R.id.logoutButton)
+        val saveChanges =
+            root.findViewById<Button>(R.id.saveProfile)
+
+        profileViewModel.getUserProfileById(id)
+            .observe(viewLifecycleOwner, Observer<ProfileEntity> { userProfile ->
+                profile = userProfile
+                profileField.setText(profile.name)
+                numberField.setText(profile.number_phone)
+            })
+
+        logout.setOnClickListener { logout() }
+        saveChanges.setOnClickListener {
+            val nameString = profileField.text.toString()
+            val numberPhoneString = numberField.text.toString()
+            saveChanges(nameString, numberPhoneString)
+        }
+
         return root
     }
 
@@ -87,4 +117,36 @@ class ProfileFragment : Fragment() {
             add_image.setImageURI(data?.data)
         }
     }
+
+    private fun saveChanges(name: String, number: String) {
+        if (name.isEmpty() || number.isEmpty()) {
+            val toast: Toast = Toast.makeText(
+                context, R.string.login,
+                Toast.LENGTH_LONG
+            )
+            toast.show()
+        } else {
+            val profileEntity =  ProfileEntity(name = name, number_phone = number , created_at = Utilities.currentTimestamp, modified_at = Utilities.currentTimestamp)
+            profileViewModel!!.editUserProfile(profileEntity)
+
+            /* Refresh Activity */
+        val intent = activity?.intent
+            activity?.finish()
+            startActivity(intent)
+        }
+    }
+
+    private fun logout() {
+        val sharedpreferences = activity?.getSharedPreferences(
+            EventPlannerConstant.PREFERENCES_NAME,
+            Context.MODE_PRIVATE
+        )
+        val editor = sharedpreferences?.edit()
+        editor?.clear()
+        editor?.apply()
+        val intent = Intent(context, LoginActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+    }
+
 }

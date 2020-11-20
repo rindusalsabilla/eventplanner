@@ -21,4 +21,6 @@
     <string name="toastLoginSuccess">Login Berhasil</string>
     <string name="login_failed">Login Gagal</string>
     <string name="event_saved">Acara Disimpan</string>
+    <string name="logout">Keluar</string>
+    <string name="save_changes">Simpan Perubahan</string>
 </resources>

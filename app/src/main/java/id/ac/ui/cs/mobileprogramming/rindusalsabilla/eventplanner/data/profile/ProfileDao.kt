@@ -6,14 +6,14 @@ import androidx.room.*
 @Dao
 interface ProfileDao {
     @Insert
-    fun createUserProfile(userProfile: ProfileEntity?): Long?
+    fun createUserProfile(profileEntity: ProfileEntity)
 
-    @Query("SELECT * FROM ProfileEntity WHERE id=:id")
-    fun getUserProfileById(id: Int): LiveData<ProfileEntity?>?
+    @Query("SELECT * FROM profile_details WHERE id=:id")
+    fun getUserProfileById(id: Int): LiveData<ProfileEntity>
 
     @Update
-    fun updateUserProfile(profileEntity: ProfileEntity?)
+    fun updateUserProfile(profileEntity: ProfileEntity)
 
     @Delete
-    fun deleteUserProfile(profileEntity: ProfileEntity?)
+    fun deleteUserProfile(profileEntity: ProfileEntity)
 }
