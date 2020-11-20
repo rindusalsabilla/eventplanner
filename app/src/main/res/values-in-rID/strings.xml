@@ -11,4 +11,14 @@
     <string name="sample">15/11/20</string>
     <string name="add">Tambah Acara</string>
     <string name="choose_image">Pilih Gambar</string>
+    <string name="username">"Username "</string>
+    <string name="password">Kata Sandi</string>
+    <string name="login">Masuk</string>
+    <string name="register">Buat Akun</string>
+    <string name="name">Nama</string>
+    <string name="mobile_phone">Nomor HP</string>
+    <string name="required_field">Semua Form Harus Diisi</string>
+    <string name="toastLoginSuccess">Login Berhasil</string>
+    <string name="login_failed">Login Gagal</string>
+    <string name="event_saved">Acara Disimpan</string>
 </resources>

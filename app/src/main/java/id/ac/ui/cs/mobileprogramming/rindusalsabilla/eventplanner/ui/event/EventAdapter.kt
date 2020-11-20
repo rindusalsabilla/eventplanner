@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.R
-import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.data.EventEntity
+import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.data.event.EventEntity
 
 class EventAdapter : RecyclerView.Adapter<EventAdapter.ListViewHolder>(){
     private lateinit var onItemClickCallback: OnItemClickCallback

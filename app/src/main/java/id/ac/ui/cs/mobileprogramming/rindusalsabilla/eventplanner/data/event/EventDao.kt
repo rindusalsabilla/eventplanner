@@ -1,4 +1,4 @@
-package id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.data
+package id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.data.event
 
 import androidx.lifecycle.LiveData
 import androidx.room.*

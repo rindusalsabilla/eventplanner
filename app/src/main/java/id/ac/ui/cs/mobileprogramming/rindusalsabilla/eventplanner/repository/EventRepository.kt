@@ -1,8 +1,8 @@
 package id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.repository
 
 import androidx.lifecycle.LiveData
-import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.data.EventDao
-import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.data.EventEntity
+import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.data.event.EventDao
+import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.data.event.EventEntity
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch

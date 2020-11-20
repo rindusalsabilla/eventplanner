@@ -15,11 +15,9 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.R
-import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.data.EventEntity
+import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.data.event.EventEntity
 import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.databinding.FragmentEventListBinding
-import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.ui.dashboard.DashboardFragment
 import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.utils.InjectorUtils
-import kotlinx.android.synthetic.main.event_item.*
 
 class EventListFragment : Fragment() {
 
@@ -81,11 +79,21 @@ class EventListFragment : Fragment() {
             if (data != null) {
                 val event: String = data.getStringExtra(AddEventActivity.EXTRA_EVENT)?: ""
                 val desc: String = data.getStringExtra(AddEventActivity.EXTRA_DESC)?: ""
+                val date: String = data.getStringExtra(AddEventActivity.EXTRA_DATE)?: ""
 
-                val contacts = EventEntity(event, desc)
+                val contacts =
+                    EventEntity(
+                        event,
+                        desc,
+                        date
+                    )
                 eventViewModel.insert(contacts)
 
-                Toast.makeText(mView.context, "Event Saved", Toast.LENGTH_SHORT).show()
+                val toast: Toast = Toast.makeText(
+                    mView.context, R.string.event_saved,
+                    Toast.LENGTH_SHORT
+                )
+                toast.show()
             }
         }
     }

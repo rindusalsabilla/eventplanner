@@ -10,4 +10,14 @@
     <string name="sample">15/11/20</string>
     <string name="add">Add Event</string>
     <string name="choose_image">Choose Image</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="register">Create Account</string>
+    <string name="name">Name</string>
+    <string name="mobile_phone">Mobile Phone</string>
+    <string name="required_field">All Field is Required</string>
+    <string name="toastLoginSuccess">Login Success</string>
+    <string name="login_failed">Login Failed</string>
+    <string name="event_saved">Event Saved</string>
 </resources>

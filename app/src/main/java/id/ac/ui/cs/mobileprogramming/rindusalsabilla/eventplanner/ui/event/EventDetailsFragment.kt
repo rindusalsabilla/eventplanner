@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.data.EventEntity
+import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.data.event.EventEntity
 import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.databinding.FragmentEventDetailsBinding
 
 class EventDetailsFragment (val data: EventEntity, val position: Int): Fragment() {
@@ -22,6 +22,7 @@ class EventDetailsFragment (val data: EventEntity, val position: Int): Fragment(
 
         binding.viewEvent.setText(data.event)
         binding.viewDesc.setText(data.desc)
+        binding.viewDate.setText(data.date)
         return mView
     }
 }

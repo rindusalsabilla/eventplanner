@@ -1,4 +1,4 @@
-package id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.data
+package id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.data.event
 
 import android.content.Context
 import androidx.room.Database
@@ -15,11 +15,13 @@ abstract class EventDb: RoomDatabase() {
         @Volatile
         private var instance: EventDb? = null
 
-        fun getInstance(context: Context) = instance ?: synchronized(this) {
-            instance ?: Room.databaseBuilder(
+        fun getInstance(context: Context) = instance
+            ?: synchronized(this) {
+            instance
+                ?: Room.databaseBuilder(
                 context.getApplicationContext(),
                 EventDb::class.java,
-                "contacts_db"
+                "event_db"
             )
                 .fallbackToDestructiveMigration()
                 .build()

@@ -2,7 +2,7 @@ package id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.ui.event
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.data.EventEntity
+import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.data.event.EventEntity
 import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.repository.EventRepository
 
 class EventViewModel (

@@ -1,7 +1,7 @@
 package id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.utils
 
 import android.content.Context
-import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.data.EventDb
+import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.data.event.EventDb
 import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.repository.EventRepository
 import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.ui.event.EventViewModelFactory
 
