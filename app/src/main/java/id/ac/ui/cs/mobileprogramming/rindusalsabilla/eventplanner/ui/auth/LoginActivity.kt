@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProviders
 import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.MainActivity
 import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.R
 import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.data.login.LoginEntity
+import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.ui.profile.ChangeProfileActivity
 import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.utils.EventPlannerConstant
 import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.utils.InjectorUtils
 import java.util.logging.Logger
@@ -59,7 +60,6 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                 loginViewModel!!.getUserLoginByUsernameAndPassword(username, password)
                     .observe(this, Observer<LoginEntity> { user ->
                         if (user != null) {
-                            Logger.getLogger(LoginActivity::class.java.name).warning("FAAAAKKKKKK")
                             val sharedpreferences = getSharedPreferences(
                                 EventPlannerConstant.PREFERENCES_NAME,
                                 Context.MODE_PRIVATE
@@ -76,7 +76,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                             )
                             toast.show()
                             val intent =
-                                Intent(applicationContext, MainActivity::class.java)
+                                Intent(applicationContext, ChangeProfileActivity::class.java)
                             intent.flags =
                                 Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                             startActivity(intent)

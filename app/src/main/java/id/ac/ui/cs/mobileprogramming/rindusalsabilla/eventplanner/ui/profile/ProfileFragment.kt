@@ -1,6 +1,7 @@
 package id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.ui.profile
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Build
@@ -14,6 +15,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.data.profile.ProfileEntity
 import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.databinding.FragmentProfileBinding
+import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.ui.auth.LoginActivity
+import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.utils.EventPlannerConstant
 import kotlinx.android.synthetic.main.fragment_profile.view.*
 
 class ProfileFragment : Fragment() {
@@ -47,7 +50,22 @@ class ProfileFragment : Fragment() {
             startActivity(intent)
 
         }
+        myView.logout.setOnClickListener(View.OnClickListener { logout() })
+
         return myView
+    }
+
+    private fun logout() {
+        val sharedpreferences = activity?.getSharedPreferences(
+            EventPlannerConstant.PREFERENCES_NAME,
+            Context.MODE_PRIVATE
+        )
+        val editor = sharedpreferences?.edit()
+        editor?.clear()
+        editor?.apply()
+        val intent = Intent(context, LoginActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
     }
 
 }

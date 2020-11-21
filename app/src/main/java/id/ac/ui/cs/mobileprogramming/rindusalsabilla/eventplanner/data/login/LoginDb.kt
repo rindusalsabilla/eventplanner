@@ -28,6 +28,7 @@ abstract class LoginDb : RoomDatabase() {
                     "login_db"
                 )
                     .fallbackToDestructiveMigration()
+                    .allowMainThreadQueries()
                     .build()
                     
         }
