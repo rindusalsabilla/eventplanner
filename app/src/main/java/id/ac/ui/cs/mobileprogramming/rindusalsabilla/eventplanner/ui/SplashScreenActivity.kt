@@ -4,9 +4,8 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.MainActivity
 import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.R
-import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.ui.auth.LoginActivity
+import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.ui.profile.ChangeProfileActivity
 
 class SplashScreenActivity : Activity() {
     lateinit var handler: Handler
@@ -16,7 +15,7 @@ class SplashScreenActivity : Activity() {
 
         handler = Handler()
         handler.postDelayed({
-            val intent = Intent(this@SplashScreenActivity, MainActivity::class.java)
+            val intent = Intent(this@SplashScreenActivity, ChangeProfileActivity::class.java)
             startActivity(intent)
             finish()
         }, 3000)
