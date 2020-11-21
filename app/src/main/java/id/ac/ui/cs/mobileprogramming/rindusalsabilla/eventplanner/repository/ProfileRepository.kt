@@ -1,7 +1,9 @@
 package id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.repository
 
 import android.app.Application
+import android.content.ContentValues
 import android.os.AsyncTask
+import android.util.Log
 import androidx.lifecycle.LiveData
 import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.data.login.LoginDao
 import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.data.login.LoginEntity
@@ -9,29 +11,31 @@ import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.data.profile.P
 import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.data.profile.ProfileDb
 import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.data.profile.ProfileEntity
 import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.utils.Utilities
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlin.coroutines.CoroutineContext
 
-class ProfileRepository private constructor(
-    private var profileDao: ProfileDao ){
+class ProfileRepository (application: Application) : CoroutineScope {
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Main
 
+    private var profileDao: ProfileDao?
 
-    fun createUserProfile(profileEntity: ProfileEntity) {
-        profileDao.createUserProfile(profileEntity)
+    init {
+        val db = ProfileDb.getInstance(application)
+        profileDao = db?.profileDao()
     }
 
-    fun updateUserProfile(profileEntity: ProfileEntity) {
-        profileDao.createUserProfile(profileEntity)
+    fun insertProfile(profile: ProfileEntity) {
+        profileDao?.insert(profile)
+        Log.d(ContentValues.TAG,profileDao?.getProfile().toString())
     }
 
-    fun getUserProfileById(id: Int) : LiveData<ProfileEntity>{
-        return profileDao.getUserProfileById(id)
+    fun getProfile(): ProfileEntity? {
+        return profileDao?.getProfile()
     }
 
-    companion object {
-        @Volatile private var instance: ProfileRepository? = null
-
-        fun getInstance(profileDao: ProfileDao) =
-            instance ?: synchronized(this) {
-                instance ?: ProfileRepository(profileDao).also { instance = it }
-            }
+    fun getAllProfile(): List<ProfileEntity> {
+        return profileDao!!.getAllProfile()
     }
 }

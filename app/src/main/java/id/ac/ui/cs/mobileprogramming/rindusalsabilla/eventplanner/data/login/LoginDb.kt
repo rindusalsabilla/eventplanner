@@ -30,6 +30,7 @@ abstract class LoginDb : RoomDatabase() {
                 )
                     .fallbackToDestructiveMigration()
                     .build()
+                    
         }
     }
 }

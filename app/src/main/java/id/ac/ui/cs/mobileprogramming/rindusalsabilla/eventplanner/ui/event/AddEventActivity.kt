@@ -32,8 +32,8 @@ class AddEventActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
 
     companion object {
         val EXTRA_EVENT = "id.ac.ui.cs.mobileprogrramming.rindusalsabilla.eventplanner.EXTRA_EVENT"
-        val EXTRA_DESC = "id.ac.ui.cs.mobileprogrramming.rindusalsabilla.eventplanner.EXTRA_EVENT"
-        val EXTRA_DATE = "id.ac.ui.cs.mobileprogrramming.rindusalsabilla.eventplanner.EXTRA_EVENT"
+        val EXTRA_DESC = "id.ac.ui.cs.mobileprogrramming.rindusalsabilla.eventplanner.EXTRA_DESC"
+        val EXTRA_DATE = "id.ac.ui.cs.mobileprogrramming.rindusalsabilla.eventplanner.EXTRA_DATE"
         val NOTIFICATION_CHANNEL_ID = "10001"
         val default_notification_channel_id = "default"
     }
@@ -44,8 +44,9 @@ class AddEventActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
 
         editEvent = findViewById(R.id.edit_event)
         editDesc = findViewById(R.id.edit_desc)
+//        editDate = findViewById(R.id.btn_due_date)
         dueDateBtn = findViewById(R.id.btn_due_date)
-        editDate = findViewById(R.id.edit_desc)
+
 
         dueDateBtn.setOnClickListener{
             val cal = Calendar.getInstance()
@@ -76,6 +77,7 @@ class AddEventActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
         val data: Intent = Intent()
         data.putExtra(EXTRA_EVENT, event)
         data.putExtra(EXTRA_DESC, desc)
+        data.putExtra(EXTRA_DATE, dueDate)
 
         setResult(AppCompatActivity.RESULT_OK, data)
         finish()

@@ -3,6 +3,7 @@ package id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.ui.auth
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
@@ -14,9 +15,11 @@ import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.R
 import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.data.login.LoginEntity
 import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.utils.EventPlannerConstant
 import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.utils.InjectorUtils
+import java.util.logging.Logger
 
 class LoginActivity : AppCompatActivity(), View.OnClickListener {
 //    private var viewModel: LoginViewModel? = null
+
     private lateinit var loginViewModel: LoginViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,6 +61,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                 loginViewModel!!.getUserLoginByUsernameAndPassword(username, password)
                     .observe(this, Observer<LoginEntity> { user ->
                         if (user != null) {
+                            Logger.getLogger(LoginActivity::class.java.name).warning("FAAAAKKKKKK")
                             val sharedpreferences = getSharedPreferences(
                                 EventPlannerConstant.PREFERENCES_NAME,
                                 Context.MODE_PRIVATE

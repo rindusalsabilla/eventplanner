@@ -15,9 +15,9 @@ class CreateAccountViewModel(private val loginRepository: LoginRepository) : Vie
         return loginRepository.createUser(loginEntity)
     }
 
-    @kotlinx.coroutines.ObsoleteCoroutinesApi
-    fun createUserProfile(profileEntity: ProfileEntity) {
-        return profileRepository.createUserProfile(profileEntity)
-    }
+//    @kotlinx.coroutines.ObsoleteCoroutinesApi
+//    fun createUserProfile(profileEntity: ProfileEntity) {
+//        return profileRepository.createUserProfile(profileEntity)
+//    }
 
 }

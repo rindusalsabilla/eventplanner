@@ -22,4 +22,5 @@
     <string name="event_saved">Event Saved</string>
     <string name="logout">Logout</string>
     <string name="save_changes">Save Changes</string>
+    <string name="edit_profile">Edit Profile</string>
 </resources>

@@ -8,7 +8,6 @@ import androidx.room.PrimaryKey
 data class ProfileEntity(
     @ColumnInfo(name = "name") var name: String,
     @ColumnInfo(name = "number_phone") var number_phone: String,
-    @ColumnInfo(name = "created_at") var created_at: String,
-    @ColumnInfo(name = "modified_at") var modified_at: String,
-    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id") var id: Int = 0
+    @ColumnInfo(name = "image") var image: String,
+    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id") var id: Int = 1
 )

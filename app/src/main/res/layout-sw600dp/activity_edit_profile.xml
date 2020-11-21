@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="20dp"
+    tools:context=".ui.profile.EditProfileActivity">
+
+    <LinearLayout
+        android:id="@+id/linear1"
+        android:layout_width="370dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:layout_margin="10dp"
+            android:src="@drawable/ic_baseline_photo_24" />
+
+        <TextView
+            android:id="@+id/upload_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:text="@string/choose_image"
+            android:textAlignment="center"
+            android:textSize="36dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linear1"
+        android:layout_marginTop="70dp">
+
+        <TextView
+            android:id="@+id/text_name"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="@string/name"
+            android:textColor="#000000"
+            android:textSize="36dp" />
+
+        <EditText
+            android:id="@+id/edit_name"
+            android:layout_width="145dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:hint="@string/name"
+            android:inputType="text"
+            android:textColor="#000000"
+            android:textSize="36dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linear2"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:id="@+id/text_phone"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="@string/mobile_phone"
+            android:textColor="#000000"
+            android:textSize="36dp" />
+
+        <EditText
+            android:id="@+id/edit_phone"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:hint="@string/mobile_phone"
+            android:inputType="phone|number"
+            android:textSize="36sp"
+            />
+
+    </LinearLayout>
+    <Button
+        android:id="@+id/next_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linear3"
+        android:layout_marginTop="50dp"
+        android:textSize="36dp"
+        android:background="@color/purple_700"
+        android:text="@string/save"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,6 @@
 package id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.ui.auth
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -8,10 +9,13 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
 import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.R
+import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.data.event.EventEntity
 import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.data.login.LoginEntity
 import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.data.profile.ProfileEntity
+import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.ui.event.AddEventActivity
 import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.utils.InjectorUtils
 import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.utils.Utilities
+import java.util.logging.Logger
 
 class CreateAccountActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var createAccountViewModel: CreateAccountViewModel
@@ -52,9 +56,9 @@ class CreateAccountActivity : AppCompatActivity(), View.OnClickListener {
             toast.show()
         } else {
             val loginEntity =  LoginEntity(username = username, password = password, createdAt = Utilities.currentTimestamp)
-            val profileEntity =  ProfileEntity(name = name, number_phone = phone , created_at = Utilities.currentTimestamp, modified_at = Utilities.currentTimestamp)
+//            val profileEntity =  ProfileEntity(name = name, number_phone = phone , created_at = Utilities.currentTimestamp, modified_at = Utilities.currentTimestamp)
             createAccountViewModel!!.createUser(loginEntity)
-            createAccountViewModel!!.createUserProfile(profileEntity)
+//            createAccountViewModel!!.createUserProfile(profileEntity)
             val intent = Intent(this, LoginActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)

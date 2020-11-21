@@ -18,6 +18,7 @@ import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.R
 import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.data.event.EventEntity
 import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.databinding.FragmentEventListBinding
 import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.utils.InjectorUtils
+import kotlinx.android.synthetic.main.fragment_event_list.*
 
 class EventListFragment : Fragment() {
 
@@ -81,13 +82,13 @@ class EventListFragment : Fragment() {
                 val desc: String = data.getStringExtra(AddEventActivity.EXTRA_DESC)?: ""
                 val date: String = data.getStringExtra(AddEventActivity.EXTRA_DATE)?: ""
 
-                val contacts =
+                val events =
                     EventEntity(
                         event,
                         desc,
                         date
                     )
-                eventViewModel.insert(contacts)
+                eventViewModel.insert(events)
 
                 val toast: Toast = Toast.makeText(
                     mView.context, R.string.event_saved,

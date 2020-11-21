@@ -2,18 +2,26 @@ package id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.data.profile
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import androidx.room.OnConflictStrategy
 
 @Dao
 interface ProfileDao {
-    @Insert
-    fun createUserProfile(profileEntity: ProfileEntity)
 
-    @Query("SELECT * FROM profile_details WHERE id=:id")
-    fun getUserProfileById(id: Int): LiveData<ProfileEntity>
+    @Query("SELECT * FROM profile_details WHERE id=1")
+    fun getProfile(): ProfileEntity
 
-    @Update
-    fun updateUserProfile(profileEntity: ProfileEntity)
+    @Query("SELECT * FROM profile_details")
+    fun getAllProfile(): List<ProfileEntity>
+
+    @Query("SELECT * FROM profile_details WHERE name=:name")
+    fun getUserByName(name: String): ProfileEntity
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insert(profile: ProfileEntity)
 
     @Delete
-    fun deleteUserProfile(profileEntity: ProfileEntity)
+    fun delete(profile: ProfileEntity)
+
+    @Update
+    fun update(profile: ProfileEntity)
 }
