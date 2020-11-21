@@ -4,7 +4,7 @@ import java.sql.Timestamp
 import java.util.*
 
 object Utilities {
-    val currentTimestamp: String
+    val timeNow: String
         get() {
             val date = Date()
             val time = date.time

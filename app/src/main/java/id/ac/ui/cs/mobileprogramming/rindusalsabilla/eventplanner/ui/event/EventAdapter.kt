@@ -18,14 +18,6 @@ class EventAdapter : RecyclerView.Adapter<EventAdapter.ListViewHolder>(){
         return ListViewHolder(itemView)
     }
 
-    interface OnItemClickCallback {
-        fun onItemClicked(data: EventEntity, position: Int)
-    }
-
-    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
-        this.onItemClickCallback = onItemClickCallback
-    }
-
     override fun onBindViewHolder(holder: ListViewHolder, position: Int){
 
         var currentEvent = listEvent.get(position)
@@ -47,5 +39,13 @@ class EventAdapter : RecyclerView.Adapter<EventAdapter.ListViewHolder>(){
 
     inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var event: TextView = itemView.findViewById(R.id.event)
+    }
+
+    interface OnItemClickCallback {
+        fun onItemClicked(data: EventEntity, position: Int)
+    }
+
+    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
+        this.onItemClickCallback = onItemClickCallback
     }
 }

@@ -3,7 +3,6 @@ package id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.ui.auth
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
@@ -18,7 +17,6 @@ import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.utils.Injector
 import java.util.logging.Logger
 
 class LoginActivity : AppCompatActivity(), View.OnClickListener {
-//    private var viewModel: LoginViewModel? = null
 
     private lateinit var loginViewModel: LoginViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,7 +46,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(view: View) {
         when (view.id) {
             R.id.button_register -> {
-                val intent = Intent(this, CreateAccountActivity::class.java)
+                val intent = Intent(this, RegisterActivity::class.java)
                 startActivity(intent)
             }
             R.id.button_login -> {

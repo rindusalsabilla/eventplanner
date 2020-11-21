@@ -18,17 +18,16 @@ import java.util.*
 class AddEventActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener{
     var hour: Int = 0
     var minute: Int = 0
-    var mDay = 0
-    var mMonth: Int = 0
-    var mYear: Int = 0
+    var myDay = 0
+    var myMonth: Int = 0
+    var myYear: Int = 0
     private var txtDate: String = ""
 
-    private val cal: Calendar = Calendar.getInstance()
+    private val calendar: Calendar = Calendar.getInstance()
 
     private lateinit var editEvent: EditText
     private lateinit var editDesc: EditText
-    private lateinit var editDate: EditText
-    private lateinit var dueDateBtn: Button
+    private lateinit var theDayBtn: Button
 
     companion object {
         val EXTRA_EVENT = "id.ac.ui.cs.mobileprogrramming.rindusalsabilla.eventplanner.EXTRA_EVENT"
@@ -44,11 +43,10 @@ class AddEventActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
 
         editEvent = findViewById(R.id.edit_event)
         editDesc = findViewById(R.id.edit_desc)
-//        editDate = findViewById(R.id.btn_due_date)
-        dueDateBtn = findViewById(R.id.btn_due_date)
+        theDayBtn = findViewById(R.id.btn_due_date)
 
 
-        dueDateBtn.setOnClickListener{
+        theDayBtn.setOnClickListener{
             val cal = Calendar.getInstance()
             val year = cal.get(Calendar.YEAR)
             val month = cal.get(Calendar.MONTH)
@@ -63,6 +61,24 @@ class AddEventActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
         setTitle("Add Event")
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.save_event, menu)
+        return true
+    }
+
+    private fun setNotification(notification: Notification, delay: Long) {
+        val notificationIntent = Intent(this, NotificationPublisher::class.java)
+        notificationIntent.putExtra(NotificationPublisher.ID_NOTIF, 1)
+        notificationIntent.putExtra(NotificationPublisher.NOTIF, notification)
+        val pendingIntent = PendingIntent.getBroadcast(
+            this,
+            0,
+            notificationIntent,
+            PendingIntent.FLAG_UPDATE_CURRENT
+        )
+        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        alarmManager.set(AlarmManager.RTC_WAKEUP, delay, pendingIntent)
+    }
 
     fun saveEvent() {
         val event: String = editEvent.text.toString()
@@ -81,26 +97,12 @@ class AddEventActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
 
         setResult(AppCompatActivity.RESULT_OK, data)
         finish()
-        setNotification(getNotification(txtDate), cal.time.time)
-    }
-
-    private fun setNotification(notification: Notification, delay: Long) {
-        val notificationIntent = Intent(this, NotificationPublisher::class.java)
-        notificationIntent.putExtra(NotificationPublisher.NOTIFICATION_ID, 1)
-        notificationIntent.putExtra(NotificationPublisher.NOTIFICATION, notification)
-        val pendingIntent = PendingIntent.getBroadcast(
-            this,
-            0,
-            notificationIntent,
-            PendingIntent.FLAG_UPDATE_CURRENT
-        )
-        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        alarmManager.set(AlarmManager.RTC_WAKEUP, delay, pendingIntent)
+        setNotification(getNotification(txtDate), calendar.time.time)
     }
 
     private fun getNotification(content: String): Notification {
         val builder = NotificationCompat.Builder(this, default_notification_channel_id)
-        builder.setContentTitle("Due Date")
+        builder.setContentTitle("Today is The Event!")
         builder.setContentText(content)
         builder.setSmallIcon(R.drawable.ic_launcher_foreground)
         builder.setAutoCancel(true)
@@ -108,10 +110,19 @@ class AddEventActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
         return builder.build()
     }
 
+    override fun onTimeSet(view: TimePicker?, hours: Int, minute: Int){
+        calendar.set(Calendar.HOUR_OF_DAY, hours)
+        calendar.set(Calendar.MINUTE, minute)
+        calendar.set(Calendar.SECOND, 0)
+        changeText()
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.save_event, menu)
-        return true
+    }
+
+    private fun changeText() {
+        val format = "dd/MM/yy hh:mm a"
+        val sdf = SimpleDateFormat(format, Locale.getDefault())
+        txtDate = sdf.format(calendar.time)
+        theDayBtn.setText(txtDate)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -128,39 +139,21 @@ class AddEventActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
     }
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int){
-        cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-        cal.set(Calendar.MONTH, month)
-        cal.set(Calendar.YEAR, year)
+        calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+        calendar.set(Calendar.MONTH, month)
+        calendar.set(Calendar.YEAR, year)
         val cal = Calendar.getInstance()
         hour = cal.get(Calendar.HOUR)
         minute = cal.get(Calendar.MINUTE)
 
-        dueDateBtn.text = SpannableStringBuilder(txtDate)
+        theDayBtn.text = SpannableStringBuilder(txtDate)
 
-        txtDate = "$mDay/$mMonth/$mYear"
+        txtDate = "$myDay/$myMonth/$myYear"
 
-        dueDateBtn.text = txtDate
+        theDayBtn.text = txtDate
 
         val tpd = TimePickerDialog(this, this, hour, minute, DateFormat.is24HourFormat(this))
         tpd.show()
     }
 
-    override fun onTimeSet(view: TimePicker?, hours: Int, minute: Int){
-        cal.set(Calendar.HOUR_OF_DAY, hours)
-        cal.set(Calendar.MINUTE, minute)
-        cal.set(Calendar.SECOND, 0)
-//        mMinute = minute
-//        txtTime = "$mHour:$mMinute"
-//        dueDateBtn.text = txtDate + txtTime
-        updateLabel()
-
-    }
-
-    private fun updateLabel() {
-        val format = "dd/MM/yy hh:mm a" //In which you need put here
-        val sdf = SimpleDateFormat(format, Locale.getDefault())
-        txtDate = sdf.format(cal.time)
-        dueDateBtn.setText(txtDate)
-//        scheduleNotification(getNotification(btnDate.getText().toString()), date.getTime())
-    }
 }

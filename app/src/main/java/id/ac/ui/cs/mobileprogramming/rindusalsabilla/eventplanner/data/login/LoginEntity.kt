@@ -11,17 +11,3 @@ data class LoginEntity(
     @ColumnInfo(name = "created_at") var createdAt: String,
     @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id") var id: Int = 0
 )
-//class LoginEntity : Serializable {
-//    @PrimaryKey(autoGenerate = true)
-//    var id = 0
-//
-//    @ColumnInfo(name = "username")
-//    var username: String? = null
-//
-//    @ColumnInfo(name = "password")
-//    var password: String? = null
-//
-//    @ColumnInfo(name = "created_at")
-//    var createdAt: String? = null
-//
-//}

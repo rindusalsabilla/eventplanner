@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EventPlanner">
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.SplashScreenActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,28 +21,23 @@
         </activity>
         <activity
             android:name=".ui.auth.LoginActivity"
-            android:label="@string/add">
+            android:label="@string/login">
         </activity>
         <activity
             android:name=".ui.event.AddEventActivity"
             android:label="@string/add">
         </activity>
         <activity
-            android:name=".ui.SplashScreenActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name">
         </activity>
         <activity
-            android:name=".ui.auth.CreateAccountActivity"
+            android:name=".ui.auth.RegisterActivity"
             android:label="@string/register">
         </activity>
         <activity
-            android:name=".ui.profile.EditProfileActivity"
+            android:name=".ui.profile.ChangeProfileActivity"
             android:label="@string/edit_profile">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
         </activity>
         <receiver android:name= ".ui.event.NotificationPublisher" />
 

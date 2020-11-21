@@ -4,11 +4,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.repository.LoginRepository
 
-class CreateAccountViewModelFactory (private val loginRepository: LoginRepository)
+class RegisterViewModelFactory (private val loginRepository: LoginRepository)
     : ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T: ViewModel?> create(modelClass: Class<T>): T {
-        return CreateAccountViewModel(loginRepository) as T
+        return RegisterViewModel(loginRepository) as T
     }
 }

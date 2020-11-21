@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="20dp"
-    tools:context=".ui.profile.EditProfileActivity">
+    tools:context=".ui.profile.ChangeProfileActivity">
 
     <LinearLayout
         android:id="@+id/linear1"

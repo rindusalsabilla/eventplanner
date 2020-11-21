@@ -6,7 +6,7 @@ import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.data.login.Log
 import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.repository.EventRepository
 import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.repository.LoginRepository
 import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.ui.event.EventViewModelFactory
-import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.ui.auth.CreateAccountViewModelFactory
+import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.ui.auth.RegisterViewModelFactory
 import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.ui.auth.LoginViewModelFactory
 
 object InjectorUtils {
@@ -22,10 +22,10 @@ object InjectorUtils {
         return LoginViewModelFactory(loginRepository)
     }
 
-    fun provideRegisterViewModelFactory(context: Context): CreateAccountViewModelFactory {
+    fun provideRegisterViewModelFactory(context: Context): RegisterViewModelFactory {
 
         val registerRepository = LoginRepository.getInstance(LoginDb.getInstance(context).loginDao())
-        return CreateAccountViewModelFactory(registerRepository)
+        return RegisterViewModelFactory(registerRepository)
     }
 
 

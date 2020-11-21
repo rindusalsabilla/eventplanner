@@ -11,9 +11,9 @@ import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.ui.event.AddEv
 
 class NotificationPublisher : BroadcastReceiver(){
     override fun onReceive(context: Context?, intent: Intent?) {
-        val notificationManager =
+        val notifManager =
             context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        val notification: Notification? = intent?.getParcelableExtra(NOTIFICATION)
+        val notification: Notification? = intent?.getParcelableExtra(NOTIF)
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             val importance = NotificationManager.IMPORTANCE_HIGH
             val notificationChannel = NotificationChannel(
@@ -21,12 +21,12 @@ class NotificationPublisher : BroadcastReceiver(){
                 "NOTIFICATION_CHANNEL_NAME",
                 importance
             )
-            notificationManager.createNotificationChannel(notificationChannel)
+            notifManager.createNotificationChannel(notificationChannel)
         }
-        val id = intent?.getIntExtra(NOTIFICATION_ID, 0)
+        val id = intent?.getIntExtra(ID_NOTIF, 0)
 
         if (id != null) {
-            notificationManager.notify(id, notification)
+            notifManager.notify(id, notification)
         } else {
             Toast.makeText(context, "Notification ID Null", Toast.LENGTH_SHORT).show()
         }
@@ -34,7 +34,7 @@ class NotificationPublisher : BroadcastReceiver(){
     }
 
     companion object {
-        var NOTIFICATION_ID = "notification-id"
-        var NOTIFICATION = "notification"
+        var ID_NOTIF = "notification-id"
+        var NOTIF = "notification"
     }
 }
