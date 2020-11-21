@@ -41,7 +41,7 @@ class EventListFragment : Fragment() {
         return mView
     }
 
-    fun goToSelectedContacts(data: EventEntity, position: Int) {
+    fun goToSelectedEvent(data: EventEntity, position: Int) {
         val fragment = EventDetailsFragment(data, position)
         val fragmentTransaction: FragmentTransaction? = activity?.supportFragmentManager?.beginTransaction()
         fragmentTransaction?.replace(R.id.nav_host_fragment, fragment, fragment.toString())
@@ -66,7 +66,7 @@ class EventListFragment : Fragment() {
 
         adapter.setOnItemClickCallback(object: EventAdapter.OnItemClickCallback {
             override fun onItemClicked(data: EventEntity, position: Int) {
-                goToSelectedContacts(data, position)
+                goToSelectedEvent(data, position)
             }
         })
     }
