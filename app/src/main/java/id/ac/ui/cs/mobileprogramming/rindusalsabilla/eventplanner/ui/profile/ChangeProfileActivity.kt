@@ -1,21 +1,22 @@
 package id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.ui.profile
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.MainActivity
 import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.R
+import java.util.jar.Manifest
+
 
 class ChangeProfileActivity : AppCompatActivity() {
 
@@ -40,6 +41,7 @@ class ChangeProfileActivity : AppCompatActivity() {
         editTextName = findViewById(R.id.edit_name)
         editTextPhone = findViewById(R.id.edit_phone)
         nextButton = findViewById(R.id.next_btn)
+
 
         uploadImage.setOnClickListener {
             uploadImage()

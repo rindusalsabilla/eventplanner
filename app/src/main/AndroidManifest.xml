@@ -39,6 +39,10 @@
             android:name=".ui.profile.ChangeProfileActivity"
             android:label="@string/edit_profile">
         </activity>
+        <activity
+            android:name=".ui.dashboard.CountEventActivity"
+            android:label="@string/edit_profile">
+        </activity>
         <receiver android:name= ".ui.event.NotificationPublisher" />
 
     </application>
