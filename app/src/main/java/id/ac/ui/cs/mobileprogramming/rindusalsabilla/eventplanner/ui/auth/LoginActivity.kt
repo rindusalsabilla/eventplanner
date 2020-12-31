@@ -2,6 +2,7 @@ package id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.ui.auth
 
 import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
@@ -20,12 +21,14 @@ import java.util.logging.Logger
 class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var loginViewModel: LoginViewModel
+    private lateinit var connManager: ConnectivityManager
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val sharedpreferences = this.application.getSharedPreferences(
             EventPlannerConstant.PREFERENCES_NAME,
             Context.MODE_PRIVATE
         )
+        this.connManager = applicationContext?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val userLogin =
             sharedpreferences.getString(EventPlannerConstant.KEY_USER_ID, "")
         if (userLogin != null && !userLogin.isEmpty()) {
@@ -37,6 +40,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
         val factory = InjectorUtils.provideLoginViewModelFactory(this.applicationContext)
         loginViewModel = ViewModelProviders.of(this, factory).get(LoginViewModel::class.java)
+
 
         val createAccount = findViewById<View>(R.id.button_register)
         val loginButton = findViewById<View>(R.id.button_login)
@@ -51,6 +55,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                 startActivity(intent)
             }
             R.id.button_login -> {
+
                 val inputUsername =
                     findViewById<View>(R.id.field_username) as EditText
                 val inputPassword =
@@ -60,26 +65,32 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                 loginViewModel!!.getUserLoginByUsernameAndPassword(username, password)
                     .observe(this, Observer<LoginEntity> { user ->
                         if (user != null) {
-                            val sharedpreferences = getSharedPreferences(
-                                EventPlannerConstant.PREFERENCES_NAME,
-                                Context.MODE_PRIVATE
-                            )
-                            val editor = sharedpreferences.edit()
-                            editor.putString(
-                                EventPlannerConstant.KEY_USER_ID,
-                                user.id.toString()
-                            )
-                            editor.apply()
-                            val toast: Toast = Toast.makeText(
-                                applicationContext, R.string.toastLoginSuccess,
-                                Toast.LENGTH_SHORT
-                            )
-                            toast.show()
-                            val intent =
-                                Intent(applicationContext, ChangeProfileActivity::class.java)
-                            intent.flags =
-                                Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                            startActivity(intent)
+                            val mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI)
+                            if (!mWifi.isConnected) {
+                                Toast.makeText(applicationContext, "WiFi tidak terhubung, tolong dinyalakan dulu", Toast.LENGTH_LONG).show()
+                            }
+                            else{
+                                val sharedpreferences = getSharedPreferences(
+                                        EventPlannerConstant.PREFERENCES_NAME,
+                                        Context.MODE_PRIVATE
+                                )
+                                val editor = sharedpreferences.edit()
+                                editor.putString(
+                                        EventPlannerConstant.KEY_USER_ID,
+                                        user.id.toString()
+                                )
+                                editor.apply()
+                                val toast: Toast = Toast.makeText(
+                                        applicationContext, R.string.toastLoginSuccess,
+                                        Toast.LENGTH_SHORT
+                                )
+                                toast.show()
+                                val intent =
+                                        Intent(applicationContext, ChangeProfileActivity::class.java)
+                                intent.flags =
+                                        Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                startActivity(intent)
+                            }
                         } else {
                             val toast: Toast = Toast.makeText(
                                 applicationContext, R.string.login_failed,
