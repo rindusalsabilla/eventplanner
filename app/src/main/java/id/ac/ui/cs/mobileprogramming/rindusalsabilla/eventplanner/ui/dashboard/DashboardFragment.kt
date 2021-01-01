@@ -14,6 +14,7 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.MainActivity
 import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.R
 import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.ui.event.AddEventActivity
 import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.ui.profile.ChangeProfileActivity
@@ -37,6 +38,32 @@ class DashboardFragment : Fragment() {
         dashboardViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })
+
+        val stopwatch = root.findViewById<TextView>(R.id.stopwatch)
+        val startButton = root.findViewById<Button>(R.id.start_stopwatch)
+        val pauseButton = root.findViewById<Button>(R.id.pause_stopwatch)
+        val resetButton = root.findViewById<Button>(R.id.reset_stopwatch)
+
+        if ((activity as MainActivity).stopwatchIsRunning) {
+            startButton.isEnabled = false
+            resetButton.isEnabled = false
+        }
+        (activity as MainActivity).stopwatchText = stopwatch
+
+        startButton.setOnClickListener {
+            (activity as MainActivity).startStopwatch()
+            startButton.isEnabled = false
+            resetButton.isEnabled = false
+        }
+        pauseButton.setOnClickListener {
+            (activity as MainActivity).pauseStopwatch()
+            startButton.isEnabled = true
+            resetButton.isEnabled = true
+        }
+        resetButton.setOnClickListener {
+            (activity as MainActivity).resetStopwatch()
+            stopwatch.text = "00:00:00"
+        }
 
         val buttonCount: Button = root.findViewById(R.id.count_button)
         buttonCount.setOnClickListener {
