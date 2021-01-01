@@ -67,6 +67,6 @@ class MyService: Service() {
     }
 
     companion object{
-        const val DEFAULT_SYNC_INTERVAL = 60 * 1000.toLong()
+        const val DEFAULT_SYNC_INTERVAL = 10 * 1000.toLong()
     }
 }
