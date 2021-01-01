@@ -39,38 +39,20 @@ class DashboardFragment : Fragment() {
             textView.text = it
         })
 
-        val stopwatch = root.findViewById<TextView>(R.id.stopwatch)
-        val startButton = root.findViewById<Button>(R.id.start_stopwatch)
-        val pauseButton = root.findViewById<Button>(R.id.pause_stopwatch)
-        val resetButton = root.findViewById<Button>(R.id.reset_stopwatch)
-
-        if ((activity as MainActivity).stopwatchIsRunning) {
-            startButton.isEnabled = false
-            resetButton.isEnabled = false
-        }
-        (activity as MainActivity).stopwatchText = stopwatch
-
-        startButton.setOnClickListener {
-            (activity as MainActivity).startStopwatch()
-            startButton.isEnabled = false
-            resetButton.isEnabled = false
-        }
-        pauseButton.setOnClickListener {
-            (activity as MainActivity).pauseStopwatch()
-            startButton.isEnabled = true
-            resetButton.isEnabled = true
-        }
-        resetButton.setOnClickListener {
-            (activity as MainActivity).resetStopwatch()
-            stopwatch.text = "00:00:00"
-        }
-
         val buttonCount: Button = root.findViewById(R.id.count_button)
         buttonCount.setOnClickListener {
             val intent: Intent = Intent(root.context, CountEventActivity::class.java)
             startActivity(intent)
 
         }
+
+        val buttonQuote: Button = root.findViewById(R.id.quote_button)
+        buttonQuote.setOnClickListener {
+            val intent: Intent = Intent(root.context, QuoteActivity::class.java)
+            startActivity(intent)
+
+        }
+
         return root
     }
 

@@ -52,6 +52,10 @@
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Theme.EventPlanner">
         </activity>
+        <activity
+            android:name=".ui.dashboard.QuoteActivity"
+            android:label="@string/edit_profile">
+        </activity>
 
         <receiver android:name= ".ui.event.NotificationPublisher" />
 
