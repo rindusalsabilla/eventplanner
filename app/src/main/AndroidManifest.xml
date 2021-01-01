@@ -48,6 +48,11 @@
             android:name=".ui.dashboard.CountEventActivity"
             android:label="@string/edit_profile">
         </activity>
+        <activity
+            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Theme.EventPlanner">
+        </activity>
+
         <receiver android:name= ".ui.event.NotificationPublisher" />
 
     </application>
