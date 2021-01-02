@@ -24,4 +24,16 @@
     <string name="logout">Keluar</string>
     <string name="save_changes">Simpan Perubahan</string>
     <string name="edit_profile">Ubah Profile</string>
+    <string name="reminder">Pengingat</string>
+    <string name="permission">Kami membutuhkan izin menggunakan kamera dan penyimpanan kamu untuk menambahkan foto.</string>
+    <string name="ok">Oke</string>
+    <string name="cam">Kamera</string>
+    <string name="pick_img">Memilih gambar dari</string>
+    <string name="cam_per">Membutuhkan Izin Kamera</string>
+    <string name="str_per">Membutuhkan Izin Penyimpanan</string>
+    <string name="my_event">Acara Saya</string>
+    <string name="quote">Kutipan</string>
+    <string name="add_ppl">Tambahkan Peserta</string>
+    <string name="con_wifi">Tolong Koneksikan ke Wifi</string>
+    <string name="fail_con">Gagal Menapilkan Kutipan. Cek Koneksi untuk Memperbaiki</string>
 </resources>

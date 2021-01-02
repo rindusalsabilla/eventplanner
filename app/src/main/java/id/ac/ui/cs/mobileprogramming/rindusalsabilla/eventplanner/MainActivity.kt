@@ -13,16 +13,37 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.ui.dashboard.MyService
 
 class MainActivity : AppCompatActivity() {
-
-
+    var swTxt: TextView? = null
+    var swIsRunning: Boolean = false
+    private var msTime: Long = 0
+    private var buff: Long = 0
+    private var updt: Long = 0
+    private var scnd: Int = 0
+    private var min: Int = 0
+    private var milScn: Int = 0
+    private var start: Long = 0
+    private lateinit var handle: Handler
+    private lateinit var runnable: Runnable
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
+
+        handle = Handler(Looper.getMainLooper())
+        runnable = Runnable {
+            msTime = SystemClock.uptimeMillis() - start
+            updt = buff + msTime;
+            scnd = (updt / 1000).toInt();
+            min = scnd / 60;
+            scnd %= 60;
+            milScn = (updt % 100).toInt();
+            handle.postDelayed(runnable, 0);
+            swTxt?.text =
+                (String.format("%02d", min) + ":" + String.format("%02d", scnd) + ":" + String.format("%02d", milScn));
+        }
 
         val navController = findNavController(R.id.nav_host_fragment)
         val appBarConfiguration = AppBarConfiguration(setOf(
@@ -41,6 +62,29 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
         super.onConfigurationChanged(newConfig)
+    }
+
+    fun resetStopwatch() {
+        msTime = 0
+        scnd = 0
+        min = 0
+        milScn = 0
+        start = 0
+        buff = 0
+        updt = 0
+
+    }
+
+    fun startStopwatch() {
+        start = SystemClock.uptimeMillis()
+        handle.postDelayed(runnable, 0)
+        swIsRunning = true
+    }
+
+    fun pauseStopwatch() {
+        buff += msTime
+        handle.removeCallbacks(runnable)
+        swIsRunning = false
     }
 
 

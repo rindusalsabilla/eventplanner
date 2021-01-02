@@ -8,25 +8,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ImageButton
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.MainActivity
 import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.R
-import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.ui.event.AddEventActivity
-import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.ui.profile.ChangeProfileActivity
-import kotlinx.android.synthetic.main.fragment_dashboard.view.*
 //import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.databinding.FragmentDashboardBinding
-import kotlinx.android.synthetic.main.fragment_profile.view.*
 
 class DashboardFragment : Fragment() {
 
     private lateinit var dashboardViewModel: DashboardViewModel
-    val ADD_EVENT_REQUEST = 1
-    private lateinit var myView: View
 
     @SuppressLint("WrongViewCast")
     @RequiresApi(Build.VERSION_CODES.O)
@@ -34,10 +26,7 @@ class DashboardFragment : Fragment() {
         dashboardViewModel =
                 ViewModelProvider(this).get(DashboardViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_dashboard, container, false)
-        val textView: TextView = root.findViewById(R.id.text_dashboard)
-        dashboardViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
+
 
         val buttonCount: Button = root.findViewById(R.id.count_button)
         buttonCount.setOnClickListener {
@@ -52,8 +41,34 @@ class DashboardFragment : Fragment() {
             startActivity(intent)
 
         }
+        val sw = root.findViewById<TextView>(R.id.stopwatch)
+        val str_btn = root.findViewById<Button>(R.id.start_stopwatch)
+        val ps_btn = root.findViewById<Button>(R.id.pause_stopwatch)
+        val rst_btn = root.findViewById<Button>(R.id.reset_stopwatch)
+
+        if ((activity as MainActivity).swIsRunning) {
+            str_btn.isEnabled = false
+            rst_btn.isEnabled = false
+        }
+        (activity as MainActivity).swTxt = sw
+
+        str_btn.setOnClickListener {
+            (activity as MainActivity).startStopwatch()
+            str_btn.isEnabled = false
+            rst_btn.isEnabled = false
+        }
+        ps_btn.setOnClickListener {
+            (activity as MainActivity).pauseStopwatch()
+            str_btn.isEnabled = true
+            rst_btn.isEnabled = true
+        }
+        rst_btn.setOnClickListener {
+            (activity as MainActivity).resetStopwatch()
+            sw.text = "00:00:00"
+        }
 
         return root
     }
+
 
 }

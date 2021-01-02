@@ -28,5 +28,5 @@
 JNIEXPORT jint JNICALL
 Java_id_ac_ui_cs_mobileprogramming_rindusalsabilla_eventplanner_ui_dashboard_CountEventActivity_minNumber(
         JNIEnv *env, jobject thiz, jint num) {
-    return num - 1;
+    return num + 1;
 }

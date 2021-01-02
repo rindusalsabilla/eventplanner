@@ -23,4 +23,16 @@
     <string name="logout">Logout</string>
     <string name="save_changes">Save Changes</string>
     <string name="edit_profile">Edit Profile</string>
+    <string name="reminder">Reminder</string>
+    <string name="permission">We need your camera and storage permission to add your photo.</string>
+    <string name="ok">Ok</string>
+    <string name="cam">Camera</string>
+    <string name="pick_img">Pick Image From</string>
+    <string name="cam_per">Camera Permission Required</string>
+    <string name="str_per">Storage Permission Required</string>
+    <string name="my_event">My Event</string>
+    <string name="quote">Quote</string>
+    <string name="add_ppl">Add People</string>
+    <string name="con_wifi">Please Connect to Wifi</string>
+    <string name="fail_con">Failed to Show Quote. Check Your Connection to Fix It</string>
 </resources>

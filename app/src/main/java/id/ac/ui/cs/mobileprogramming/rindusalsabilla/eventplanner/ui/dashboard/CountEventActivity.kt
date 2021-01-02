@@ -20,7 +20,7 @@ import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.R
 import kotlinx.android.synthetic.main.count_activity.*
 
 class CountEventActivity : AppCompatActivity()  {
-    private var num: Int = 100
+    private var num: Int = 0
     private external fun minNumber(num: Int): Int
 
     private val CAMERA_REQUEST_CODE = 100
@@ -65,9 +65,9 @@ class CountEventActivity : AppCompatActivity()  {
     private fun denyPickDialog(){
         val builder = AlertDialog.Builder(this)
 
-        builder.setTitle("Reminder")
-        builder.setMessage("We need your camera and storage permission to add your photo")
-        builder.setPositiveButton("Ok", { dialogInterface: DialogInterface, i: Int -> imagePickDialog()})
+        builder.setTitle(R.string.reminder)
+        builder.setMessage(R.string.permission)
+        builder.setPositiveButton(R.string.ok, { dialogInterface: DialogInterface, i: Int -> imagePickDialog()})
         builder.create().show()
     }
 
@@ -75,7 +75,7 @@ class CountEventActivity : AppCompatActivity()  {
         val options = arrayOf("Camera", "Gallery")
         val builder = AlertDialog.Builder(this)
 
-        builder.setTitle("Pick Image From")
+        builder.setTitle(R.string.pick_img)
         builder.setItems(options){ dialog, which ->
             if (which == 0){
                 if (!checkCameraPermission()){
@@ -86,7 +86,7 @@ class CountEventActivity : AppCompatActivity()  {
                 }
             }
             else if (which == 1){
-                if (!checkCameraPermission()){
+                if (!checkStoragePermission()){
                     requestStoragePermission()
                 }
                 else{
@@ -130,7 +130,7 @@ class CountEventActivity : AppCompatActivity()  {
                         pickFromCamera()
                     }
                     else{
-                        Toast.makeText(this, "Camera Permission Required", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this, R.string.cam_per, Toast.LENGTH_LONG).show()
                     }
                 }
                 else{
@@ -148,7 +148,7 @@ class CountEventActivity : AppCompatActivity()  {
                         pickFromStorage()
                     }
                     else{
-                        Toast.makeText(this, "Storage Permission Required", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this, R.string.str_per, Toast.LENGTH_LONG).show()
                     }
                 }
                 else{
@@ -200,7 +200,7 @@ class CountEventActivity : AppCompatActivity()  {
     private fun pickFromCamera(){
         val values = ContentValues()
         values.put(MediaStore.Images.Media.TITLE, "Image title")
-        values.put(MediaStore.Images.Media.DESCRIPTION, "Image descroption")
+        values.put(MediaStore.Images.Media.DESCRIPTION, "Image description")
 
         imagerUri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
 

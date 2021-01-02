@@ -67,7 +67,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                         if (user != null) {
                             val mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI)
                             if (!mWifi.isConnected) {
-                                Toast.makeText(applicationContext, "WiFi tidak terhubung, tolong dinyalakan dulu", Toast.LENGTH_LONG).show()
+                                Toast.makeText(applicationContext, R.string.con_wifi, Toast.LENGTH_LONG).show()
                             }
                             else{
                                 val sharedpreferences = getSharedPreferences(

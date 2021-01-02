@@ -6,8 +6,9 @@ import android.widget.Toast
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import android.os.Handler
 import android.os.IBinder
+import android.util.Log
+import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.R
 import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.utils.AppConstants
-import id.ac.ui.cs.mobileprogramming.rindusalsabilla.eventplanner.ui.dashboard.Quote
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -22,35 +23,36 @@ class MyService: Service() {
 
     private var mHandler: Handler? = null
 
-    // task to be run here
-    private val runnableService: Runnable = object : Runnable {
+    private val runservice: Runnable = object : Runnable {
         override fun run() {
-            loadData()
+            pushLoadAPI()
             mHandler?.postDelayed(this, DEFAULT_SYNC_INTERVAL)
         }
     }
 
+    companion object{
+        const val DEFAULT_SYNC_INTERVAL = 10 * 1000.toLong()
+    }
+
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        // Create the Handler object
         mHandler = Handler()
-        // Execute a runnable task as soon as possible
-        mHandler!!.post(runnableService)
+        mHandler!!.post(runservice)
         return START_STICKY
     }
 
     @Synchronized
-    private fun loadData() {
-        val rf = Retrofit.Builder()
+    private fun pushLoadAPI() {
+        val valRetrofit = Retrofit.Builder()
             .baseUrl(APIConfig.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-        val request = rf.create(APIConfig::class.java)
+        val request = valRetrofit.create(APIConfig::class.java)
         val call = request.quote
         call?.enqueue(object:Callback<Quote?>{
             override fun onFailure(call: Call<Quote?>, t: Throwable) {
                 Toast.makeText(
                     applicationContext,
-                    "Failed to Load Quote Data. Please check your internet connection",
+                    R.string.fail_con,
                     Toast.LENGTH_SHORT).show()
             }
             override fun onResponse(call: Call<Quote?>, response: Response<Quote?>) {
@@ -64,9 +66,5 @@ class MyService: Service() {
                 broadcastManager.sendBroadcast(intent)
             }
         })
-    }
-
-    companion object{
-        const val DEFAULT_SYNC_INTERVAL = 10 * 1000.toLong()
     }
 }
